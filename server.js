@@ -1,67 +1,81 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const app = express();
-const port = 8000;
 
-app.use(bodyParser.json());
+class EventServer {
+    constructor() {
+        this.app = express();
+        this.port = 8000;
+        this.events = [];
+        this.currentId = 1;
 
-// Обслуживание статических файлов из папки public
-app.use(express.static(path.join(__dirname, 'public')));
-
-let events = [];
-let currentId = 1;
-
-// Получение всех событий
-app.get('/events', (req, res) => {
-    res.json(events);
-});
-
-// Получение события по ID
-app.get('/events/:id', (req, res) => {
-    const event = events.find(e => e.id === parseInt(req.params.id));
-    if (!event) {
-        res.status(404).send('Event not found');
-    } else {
-        res.json(event);
+        this.setupMiddleware();
+        this.setupRoutes();
     }
-});
 
-// Создание нового события
-app.post('/events', (req, res) => {
-    const event = { id: currentId++, ...req.body };
-    events.push(event);
-    res.status(201).json(event);
-});
-
-// Обновление события
-app.put('/events/:id', (req, res) => {
-    const eventIndex = events.findIndex(e => e.id === parseInt(req.params.id));
-    if (eventIndex === -1) {
-        res.status(404).send('Event not found');
-    } else {
-        events[eventIndex] = { id: parseInt(req.params.id), ...req.body };
-        res.json(events[eventIndex]);
+    setupMiddleware() {
+        this.app.use(bodyParser.json());
+        this.app.use(express.static(path.join(__dirname, 'public')));
     }
-});
 
-// Удаление события
-app.delete('/events/:id', (req, res) => {
-    const eventIndex = events.findIndex(e => e.id === parseInt(req.params.id));
-    if (eventIndex === -1) {
-        res.status(404).send('Event not found');
-    } else {
-        events.splice(eventIndex, 1);
-        res.status(204).send(); // Успешное удаление, без содержимого в ответе
+    setupRoutes() {
+        this.app.get('/events', (req, res) => this.getAllEvents(req, res));
+        this.app.get('/events/:id', (req, res) => this.getEventById(req, res));
+        this.app.post('/events', (req, res) => this.createEvent(req, res));
+        this.app.put('/events/:id', (req, res) => this.updateEvent(req, res));
+        this.app.delete('/events/:id', (req, res) => this.deleteEvent(req, res));
+        this.app.get('*', (req, res) => this.serveIndex(req, res));
     }
-});
 
-// Обслуживание index.html для всех остальных маршрутов
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+    getAllEvents(req, res) {
+        res.json(this.events);
+    }
 
-// Запуск сервера
-app.listen(port, () => {
-    console.log(`Сервер работает. Используйте http://localhost:${port} для работы с событиями.`);
-});
+    getEventById(req, res) {
+        const event = this.events.find(e => e.id === parseInt(req.params.id));
+        if (!event) {
+            res.status(404).send('Event not found');
+        } else {
+            res.json(event);
+        }
+    }
+
+    createEvent(req, res) {
+        const event = { id: this.currentId++, ...req.body };
+        this.events.push(event);
+        res.status(201).json(event);
+    }
+
+    updateEvent(req, res) {
+        const eventIndex = this.events.findIndex(e => e.id === parseInt(req.params.id));
+        if (eventIndex === -1) {
+            res.status(404).send('Event not found');
+        } else {
+            this.events[eventIndex] = { id: parseInt(req.params.id), ...req.body };
+            res.json(this.events[eventIndex]);
+        }
+    }
+
+    deleteEvent(req, res) {
+        const eventIndex = this.events.findIndex(e => e.id === parseInt(req.params.id));
+        if (eventIndex === -1) {
+            res.status(404).send('Event not found');
+        } else {
+            this.events.splice(eventIndex, 1);
+            res.status(204).send();
+        }
+    }
+
+    serveIndex(req, res) {
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    }
+
+    start() {
+        this.app.listen(this.port, () => {
+            console.log(`Сервер работает. Используйте http://localhost:${this.port} для работы с событиями.`);
+        });
+    }
+}
+
+const server = new EventServer();
+server.start();
