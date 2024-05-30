@@ -1,0 +1,210 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 0.5em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    padding: 1em 2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+nav ul li button:hover {
+    background-color: #555;
+    color: #ddd;
+}
+
+main {
+    padding: 2em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section {
+    display: none;
+    margin-bottom: 2em;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 2em auto;
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #555;
+}
+
+form input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+
+
+#scheduled-events-btn, #upcoming-events-btn, #calendar-btn {
+    background-color: #333;
+    border: none;
+    color: white;
+    font-size: 1em;
+    padding: 0.75em 1.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#scheduled-events-btn:hover, #upcoming-events-btn:hover, #calendar-btn:hover {
+    background-color: #505050;
+}
+
+#edit-panel {
+    display: none;
+}
+
+#edit-panel.open {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+#event-form button[type ="submit"]{
+    width: 100%;
+    padding: 0.75em;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 0.5em;
+}
+
+#event-form button[type ="submit"]:hover{
+    background-color: #0056b3;
+}
+
+#edit-form button[type="submit"] {
+    width: 100%;
+    padding: 0.75em;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 0.5em;
+}
+
+#edit-form button#close-edit-panel {
+    width: 100%;
+    padding: 0.75em;
+    background-color: #e81e1e;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5em;
+}
+
+
+#edit-form button#close-edit-panel:hover {
+    background-color: #a5221d;
+}
+
+#edit-form button[type="submit"]:hover{
+    background-color: #0056b3;
+} 
+
+
+.delete-btn{
+    background-color: #e81e1e;
+    border: none;
+    color: white;
+    font-size: 1em;
+    padding: 0.75em 1.5em;
+    margin: 0.5em 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn{
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 1em;
+    padding: 0.75em 1.5em;
+    margin: 0.5em 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover{
+    background-color: #0056b3;
+}
+.delete-btn:hover{
+    background-color: #a5221d;
+}

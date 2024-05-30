@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        #edit-panel {
+            display: none;
+        }
+        #edit-panel.open {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><button id="upcoming-events-btn">Ближайшие события</button></li>
+            <li><button id="scheduled-events-btn">Запланированные события</button></li>
+            <li><button id="calendar-btn">Календарь</button></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="upcoming-events" class="section">
+            <h2>Ближайшие события</h2>
+            <div id="upcoming-events-list"></div>
+        </section>
+        <section id="scheduled-events" class="section">
+            <h2>Запланированные события</h2>
+            <div id="scheduled-events-list"></div>
+        </section>
+        <section id="calendar" class="section">
+            <h2>Календарь</h2>
+            <form id="event-form">
+                <label for="event-title">Название события:</label>
+                <input type="text" id="event-title" name="event-title" required>
+                <label for="event-date">Дата события:</label>
+                <input type="date" id="event-date" name="event-date" required>
+                <label for="event-time">Время события:</label>
+                <input type="time" id="event-time" name="event-time" required>
+                <label for="event-duration">Продолжительность (часы):</label>
+                <input type="number" id="event-duration" name="event-duration" required>
+                <label for="event-location">Место события:</label>
+                <input type="text" id="event-location" name="event-location" required>
+                <button type="submit">Добавить событие</button>
+            </form>
+        </section>
+        <section id="edit-panel" class="section">
+            <h2>Редактировать событие</h2>
+            <form id="edit-form">
+                <label for="edit-event-title">Название события:</label>
+                <input type="text" id="edit-event-title" name="event-title" required>
+                <label for="edit-event-date">Дата события:</label>
+                <input type="date" id="edit-event-date" name="event-date" required>
+                <label for="edit-event-time">Время события:</label>
+                <input type="time" id="edit-event-time" name="event-time" required>
+                <label for="edit-event-duration">Продолжительность (часы):</label>
+                <input type="number" id="edit-event-duration" name="event-duration" required>
+                <label for="edit-event-location">Место события:</label>
+                <input type="text" id="edit-event-location" name="event-location" required>
+                <button type="submit">Обновить событие</button>
+                <button type="button" id="close-edit-panel">Отмена</button>
+            </form>
+        </section>
+    </main>
+    <script src="./main.js"></script>
+</body>
+</html>
